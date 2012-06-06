@@ -29,8 +29,8 @@ public class LevelCommandExecutor implements CommandExecutor {
 		if (args.length == 0) {
 			if (!RemoveLevel(sender)) {
 				sender.sendMessage("§3Usage: §o/" + label + " LevelNumber§r§3.");
-				sender.sendMessage("§3Or:    §o/" + label + " MinimumLevel MaximumLevel§r§3.");
-				sender.sendMessage("§3Use §o/" + label + "§r§3 to reset your echantment request.");
+				sender.sendMessage("§3Or:     §o/" + label + " MinimumLevel MaximumLevel§r§3.");
+				sender.sendMessage("§3Use    §o/" + label + "§r§3 to reset your echantment request.");
 			}
 			return true;
 		} else if (args.length == 1) {
