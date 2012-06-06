@@ -1,0 +1,5 @@
+main:
+  EnchantingDelay: 400
+  ConsoleMessages: false
+  ResetAfterEnchant: true
+  MaximumEnchantmentAttempts: 1000
