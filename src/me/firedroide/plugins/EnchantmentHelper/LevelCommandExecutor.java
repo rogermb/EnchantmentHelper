@@ -21,6 +21,11 @@ public class LevelCommandExecutor implements CommandExecutor {
 			return true;
 		}
 		
+		if (!sender.hasPermission("enchantmenthelper.use")) {
+			sender.sendMessage("§4You're not allowed to use this command.");
+			return true;
+		}
+		
 		if (args.length == 0) {
 			if (!RemoveLevel(sender)) {
 				sender.sendMessage("§3Usage: §o/" + label + " LevelNumber§r§3.");

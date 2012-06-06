@@ -10,3 +10,7 @@ commands:
     description: Set the level you want to do an enchantment of.
     usage: 'Usage: /<command> level OR /<command> minlevel maxlevel.'
     aliases: [enchantmentlevel, enchantlevel, level, lvl]
+permissions:
+  enchantmenthelper.use:
+    description: Allows people to use EnchantmentHelper.
+    default: true
