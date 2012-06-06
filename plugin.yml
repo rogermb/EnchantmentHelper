@@ -1,5 +1,5 @@
 name: EnchantmentHelper
-version: '0.11'
+version: '0.12'
 description: 'This plugin will help you enchant your stuff quicker!'
 main: me.firedroide.plugins.EnchantmentHelper.EnchantmentHelper
 load: POSTWORLD
