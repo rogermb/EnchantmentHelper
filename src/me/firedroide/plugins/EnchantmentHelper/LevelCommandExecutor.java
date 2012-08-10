@@ -7,6 +7,8 @@ import org.bukkit.entity.Player;
 
 public class LevelCommandExecutor implements CommandExecutor {
 	
+	private final static int MAX_LEVEL = 30;
+	
 	EnchantmentHelper plugin;
 	
 	public LevelCommandExecutor(EnchantmentHelper plugin) {
@@ -36,7 +38,7 @@ public class LevelCommandExecutor implements CommandExecutor {
 		} else if (args.length == 1) {
 			try {
 				Integer l = Integer.valueOf(args[0]);
-				if (l > 0 && l <= 50) {
+				if (l > 0 && l <= MAX_LEVEL) {
 					Integer[] i = {l};
 					SetLevel(sender, i);
 				} else {
@@ -50,7 +52,7 @@ public class LevelCommandExecutor implements CommandExecutor {
 			try {
 				Integer m = Math.min(Integer.valueOf(args[0]), Integer.valueOf(args[1]));
 				Integer n = Math.max(Integer.valueOf(args[0]), Integer.valueOf(args[1]));
-				if ((m > 0 && m <= 50) && (n > 0 && n <= 50) && (m != n)) {
+				if ((m > 0 && m <= MAX_LEVEL) && (n > 0 && n <= MAX_LEVEL) && (m != n)) {
 					Integer[] i = {m, n};
 					SetLevel(sender, i);
 					return true;
