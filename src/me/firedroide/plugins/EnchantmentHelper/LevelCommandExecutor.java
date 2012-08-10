@@ -29,7 +29,7 @@ public class LevelCommandExecutor implements CommandExecutor {
 		}
 		
 		if (args.length == 0) {
-			if (!RemoveLevel(sender)) {
+			if (!removeLevel(sender)) {
 				sender.sendMessage("§3Usage: §o/" + label + " LevelNumber§r§3.");
 				sender.sendMessage("§3Or:     §o/" + label + " MinimumLevel MaximumLevel§r§3.");
 				sender.sendMessage("§3Use    §o/" + label + "§r§3 to reset your echantment request.");
@@ -40,9 +40,9 @@ public class LevelCommandExecutor implements CommandExecutor {
 				Integer l = Integer.valueOf(args[0]);
 				if (l > 0 && l <= MAX_LEVEL) {
 					Integer[] i = {l};
-					SetLevel(sender, i);
+					setLevel(sender, i);
 				} else {
-					RemoveLevel(sender);
+					removeLevel(sender);
 				}
 				return true;
 			} catch (NumberFormatException e) {
@@ -54,7 +54,7 @@ public class LevelCommandExecutor implements CommandExecutor {
 				Integer n = Math.max(Integer.valueOf(args[0]), Integer.valueOf(args[1]));
 				if ((m > 0 && m <= MAX_LEVEL) && (n > 0 && n <= MAX_LEVEL) && (m != n)) {
 					Integer[] i = {m, n};
-					SetLevel(sender, i);
+					setLevel(sender, i);
 					return true;
 				} else {
 					return false;
@@ -66,7 +66,7 @@ public class LevelCommandExecutor implements CommandExecutor {
 		return false;
 	}
 	
-	public boolean RemoveLevel(CommandSender sender) {
+	public boolean removeLevel(CommandSender sender) {
 		if (plugin.getLevels().containsKey(sender.getName())) {
 			plugin.getLevels().remove(sender.getName());
 			sender.sendMessage("§3Your enchantment request has been reset.");
@@ -76,7 +76,7 @@ public class LevelCommandExecutor implements CommandExecutor {
 		}
 	}
 	
-	public void SetLevel(CommandSender sender, Integer[] level) {
+	public void setLevel(CommandSender sender, Integer[] level) {
 		if (plugin.getLevels().containsKey(sender.getName())) {
 			plugin.getLevels().remove(sender.getName());
 			plugin.getLevels().put(((Player) sender).getName(), level);
