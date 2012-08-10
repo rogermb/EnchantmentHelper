@@ -1,5 +1,6 @@
 package me.firedroide.plugins.EnchantmentHelper;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
@@ -23,7 +24,7 @@ public class EnchantmentListener implements Listener {
 						plugin.getMinLevel(e.getEnchanter().getName()),
 						plugin.getMaxLevel(e.getEnchanter().getName()));
 				plugin.getThreads().put(e.getEnchanter().getName(), thr);
-				thr.start();
+				Bukkit.getScheduler().scheduleAsyncDelayedTask(plugin, thr);
 			}
 		}
 	}

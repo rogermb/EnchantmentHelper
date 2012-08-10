@@ -5,14 +5,15 @@ import java.util.logging.Logger;
 
 import me.firedroide.plugins.EnchantmentHelper.util.ConfigReader;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.MemoryConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class EnchantmentHelper extends JavaPlugin {
 	
-	EnchantmentListener EnchantListener;
-	HashMap<String, Thread> Threads;
-	HashMap<String, Integer[]> Levels;
+	EnchantmentListener enchantListener;
+	HashMap<String, Runnable> threads;
+	HashMap<String, Integer[]> levels;
 	Logger logger;
 	ConfigReader cr;
 	LevelCommandExecutor lcl;
@@ -24,10 +25,10 @@ public class EnchantmentHelper extends JavaPlugin {
 	
 	public void onEnable() {
 		logger = this.getLogger();
-		EnchantListener = new EnchantmentListener(this);
-		getServer().getPluginManager().registerEvents(EnchantListener, this);
-		Threads = new HashMap<String, Thread>();
-		Levels = new HashMap<String, Integer[]>();
+		enchantListener = new EnchantmentListener(this);
+		getServer().getPluginManager().registerEvents(enchantListener, this);
+		threads = new HashMap<String, Runnable>();
+		levels = new HashMap<String, Integer[]>();
 		
 		lcl = new LevelCommandExecutor(this);
 		this.getCommand("enchantinglevel").setExecutor(lcl);
@@ -37,10 +38,9 @@ public class EnchantmentHelper extends JavaPlugin {
 	}
 	
 	public void onDisable() {
-		for (String key : Threads.keySet()) {
-			Threads.get(key);
-			Threads.remove(key);
-		}
+		Bukkit.getScheduler().cancelTasks(this);
+		threads.clear();
+		levels.clear();
 	}
 	
 	public void readConfig() {
@@ -59,27 +59,27 @@ public class EnchantmentHelper extends JavaPlugin {
 		if (cr.gotErrors()) this.saveConfig();
 	}
 	
-	public HashMap<String, Thread> getThreads() {
-		return Threads;
+	public HashMap<String, Runnable> getThreads() {
+		return threads;
 	}
 	
-	public Thread getThread(String player) {
-		return Threads.get(player);
+	public Runnable getThread(String player) {
+		return threads.get(player);
 	}
 	
 	public HashMap<String, Integer[]> getLevels() {
-		return Levels;
+		return levels;
 	}
 	
 	public Integer getMinLevel(String player) {
-		return Levels.get(player)[0];
+		return levels.get(player)[0];
 	}
 	
 	public Integer getMaxLevel(String player) {
-		if (Levels.get(player).length == 2) {
-			return Levels.get(player)[1];
+		if (levels.get(player).length == 2) {
+			return levels.get(player)[1];
 		} else {
-			return Levels.get(player)[0];
+			return levels.get(player)[0];
 		}
 	}
 	
